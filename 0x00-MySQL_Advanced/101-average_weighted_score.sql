@@ -14,9 +14,10 @@ BEGIN
             SELECT SUM(corrections.score * projects.weight) FROM corrections INNER JOIN projects ON corrections.project_id = projects.id WHERE corrections.user_id = users.id
             );
     UPDATE users
-    SET users.average_score = IF(users.total_weight = 0, 0, users.total_score / users.total_weight);
+        SET users.average_score = IF(users.total_weight = 0, 0, users.total_score / users.total_weight);
     ALTER TABLE users
-    DROP COLUMN total_score;
-    DROP COLUMN total_weight;
+        DROP COLUMN total_score;
+    ALTER TABLE users
+        DROP COLUMN total_weight;
 END $$
 DELIMITER ;
