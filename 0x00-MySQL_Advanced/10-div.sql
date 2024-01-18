@@ -6,7 +6,7 @@ RETURNS FLOAT
 BEGIN
     DECLARE division FLOAT DEFAULT 0;
     IF b != 0 THEN
-      division = a / b;
+        SET division = a / b;
     END IF;
     RETURN division;
 END $$
