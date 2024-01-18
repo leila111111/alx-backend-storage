@@ -11,10 +11,10 @@ BEGIN
         INTO average_weighted_score
         FROM corrections
             INNER JOIN projects ON corrections.project_id = projects.id
-        WHERE corrections.user_id = in_user_id;
+        WHERE corrections.user_id = user_id;
 
     UPDATE users
         SET users.average_score = average_weighted_score
-        WHERE users.id = in_user_id;
+        WHERE users.id = user_id;
 END $$
 DELIMITER ;
