@@ -2,7 +2,7 @@
 -- computes and store the average score for a student.
 DROP PROCEDURE IF EXISTS ComputeAverageScoreForUser;
 DELIMITER $$
-CREATE PROCEDURE ComputeAverageScoreForUser (user_id INT)
+CREATE PROCEDURE ComputeAverageScoreForUser (IN user_id INT)
 BEGIN
     DECLARE new_score FLOAT;
 
