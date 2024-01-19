@@ -4,9 +4,14 @@ DROP PROCEDURE IF EXISTS ComputeAverageScoreForUser;
 DELIMITER $$
 CREATE PROCEDURE ComputeAverageScoreForUser (IN user_id INT)
 BEGIN
-    DECLARE new_score FLOAT;
+    DECLARE total INT DEFAULT 0;
+    DECLARE num_projects INT DEFAULT 0;
 
-    SELECT AVG(score) INTO new_score FROM corrections WHERE user_id = user_id;
-    UPDATE users SET average_score = new_score WHERE id = user_id;
+    SELECT COUNT(*) INTO num_projects FROM corrections WHERE corrections.user_id = user_id;
+    SELECT SUM(score) INTO total FROM corrections WHERE corrections.user_id = user_id;
+
+    UPDATE users
+        SET users.average_score = IF(num_projects = 0, 0, total / num_projects)
+        WHERE users.id = user_id;
 END $$
 DELIMITER ;
