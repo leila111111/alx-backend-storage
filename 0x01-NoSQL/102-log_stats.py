@@ -25,6 +25,6 @@ if __name__ == '__main__':
             },
         ]
     )
-     print("IPs:")
+    print("IPs:")
     for log in count_log:
         print('\t{}: {}'.format(log['_id'], log['req']))
