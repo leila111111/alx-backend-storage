@@ -4,7 +4,6 @@ from pymongo import MongoClient
 
 if __name__ == '__main__':
     client = MongoClient('mongodb://127.0.0.1:27017')
-    print_nginx_request_logs(client.logs.nginx)
     print('{} logs'.format(client.logs.nginx.count_documents({})))
     print('Methods:')
     methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
