@@ -12,8 +12,8 @@ def count_calls(method: Callable) -> Callable:
     '''
     @wraps(method)
     def wrapper(self, *args, **kwargs) -> Any:
-        '''function that increments the count for that key every time the method is called 
-        '''
+        '''function that increments the count for that key every
+        time the method is called'''
         self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
     return wrapper
@@ -36,7 +36,7 @@ def call_history(method: Callable) -> Callable:
 
 
 def replay(fn: Callable) -> None:
-    '''replay function to display the history of calls of a particular function.
+    '''replay function to display the history of calls of a particular function
     '''
     store = redis.Redis()
     inp_k = '{}:inputs'.format(fn.__qualname__)
@@ -44,7 +44,7 @@ def replay(fn: Callable) -> None:
     inputs = store.lrange(inp_k, 0, -1)
     outputs = store.lrange(out_k, 0, -1)
     liste = [(key.decode("utf-8"), value.decode("utf-8"))
-                             for key, value in zip(inputs, outputs)]
+             for key, value in zip(inputs, outputs)]
     print('{} was called {} times:'.format(fn.__qualname__, len(liste)))
     for key, value in liste:
         print('{}(*{}) -> {}'.format(
@@ -55,7 +55,7 @@ def replay(fn: Callable) -> None:
 
 
 class Cache:
-    ''' Cache class. 
+    ''' Cache class.
     '''
     def __init__(self) -> None:
         '''Initialization of instance.
@@ -66,7 +66,8 @@ class Cache:
     @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
-        '''store the input data in Redis using the random key and return the key.
+        '''store the input data in Redis using the random key
+        and return the key.
         '''
         key_id = str(uuid.uuid4())
         self._redis.set(key_id, data)
